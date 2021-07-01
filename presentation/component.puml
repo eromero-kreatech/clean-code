@@ -1,0 +1,55 @@
+@startuml "Bank Component"
+!include <C4/C4_Component>
+
+Person(customer, "Bank Customer", "A customer of the bank with active products.")
+
+Container_Boundary(bankWeb, "BankWeb"){
+    Component(dashboard,"Dashboard", "React", "Main web application with dashboard")
+    Component(authentication_web,"Authentication", "React", "Authentication of users and redirect to principal")
+    Rel(dashboard, authentication_web, "Redirect to")
+}
+Container_Boundary(bankApp, "BankApp"){
+    Component(android, "Android App", "Android", "Mobile application")
+    Component(ios, "IOS App", "IOS", "Mobile application")
+}
+Container_Boundary(bankServices, "BankServices"){
+    Component(mobileBff,"Mobile", "Spring", "Mobile BFF")
+    Component(gateway,"Gateway", "Spring Zuul Gateway", "Api gateway")
+    Component(accounts,"Accounts", "Spring", "Custemer accounts")
+    Component(payments,"Payments", "Spring", "Handle all the payments methods")
+
+    Rel(gateway, accounts, "Redirect to", "https/json")
+    Rel(gateway, payments, "Redirect to", "https/json")
+}
+
+Container_Boundary(database,"Database Server"){
+    ContainerDb(databaseAccounts, "Accounts Database","SqlServer", "Databse system")
+    ContainerDb(databasePayments, "Payments Database","SqlServer", "Databse system")
+}
+
+
+Container_Boundary(core, "Bank Core"){
+    Container_Ext(bankGateway, "Bank Gateway", "IBM Gateway", "Core Banking Gateway")
+    Component_Ext(crm,"CRM", "Siebel", "Customer information")
+    Component_Ext(icbs,"ICBS", "RPG", "Core banking")
+    Component_Ext(sat,"SAT", "SAT", "Credit Card information")
+
+    Rel(bankGateway, crm, "Uses")
+    Rel(bankGateway, icbs, "Uses")
+    Rel(bankGateway, sat, "Uses")
+}
+
+Rel(customer, dashboard, "Access via web", "https/json")
+Rel(customer, android, "Access via app", "https/json")
+Rel(customer, ios, "Access via app", "https/json")
+Rel(dashboard, gateway, "Call services", "https/json")
+Rel(authentication_web, gateway, "Call services", "https/json")
+Rel(android, mobileBff, "Call services", "https/json")
+Rel(ios, mobileBff, "Call services", "https/json")
+Rel(mobileBff, gateway, "Call services", "https/json")
+Rel(accounts, databaseAccounts, "Store and retrieve data", "jdbc")
+Rel(payments, databasePayments, "Store and retrieve data", "jdbc")
+Rel(accounts, bankGateway, "Call services", "https/xml")
+Rel(payments, bankGateway, "Call services", "https/xml")
+
+@enduml

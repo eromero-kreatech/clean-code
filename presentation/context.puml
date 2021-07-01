@@ -1,0 +1,12 @@
+@startuml "Bank Context"
+!include <C4/C4_Context>
+
+Person(customer, "Bank Customer", "A customer of the bank with active products.")
+System(bankApp, "Bank App", "Allows customer to view information about ther bank products, and make transactions")
+System_Ext(core, "Bank Core", "Stores all the core banking information about customers, products, transfers") #LightGray
+
+
+Rel(customer, bankApp, "View product information, reports and makes payments using")
+Rel(bankApp, core, "Call services")
+
+@enduml

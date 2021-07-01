@@ -1,0 +1,42 @@
+@startuml "Register new Customers"
+skinparam monochrome true
+actor Customer
+
+participant Dasboard /'  '/
+participant Authentication /'  '/
+participant Gateway /'  '/
+participant CustomerAPI /'  '/
+participant AccountsAPI /'  '/
+database AuthenticationDB
+boundary BankGateway
+
+Customer-> Dasboard : Load principal page
+Dasboard -> Authentication: Redirect to login
+Authentication -> Customer: Display login page
+Customer -> Authentication: Enter credentials
+Authentication -> Gateway: Invoke credentials validation
+Gateway -> Gateway: Search available\ncustomer api
+Gateway -> CustomerAPI: Invoke credentials validation
+CustomerAPI -> BankGateway: Validate credentials
+BankGateway -> CustomerAPI: Credential validation
+
+alt credentials = invalid
+    CustomerAPI  -> Gateway: Credential NOT valid
+    Gateway -> Authentication: Invalid credentials
+    Authentication -> Customer: Display error page
+end
+
+alt credentials = valid
+    CustomerAPI  -> Gateway: Credential are valid
+    Gateway -> Gateway: Search available\naccounts api
+    Gateway  -> AccountsAPI: Find customer accounts
+    AccountsAPI  -> AuthenticationDB: Search account info
+    AuthenticationDB  -> AccountsAPI: Retrieve account info
+    AccountsAPI -> Gateway: Send account info
+    Gateway -> Dasboard: Send account info
+    Dasboard -> Customer: Display accounts dashboard
+
+end
+
+
+@enduml

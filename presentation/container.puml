@@ -1,0 +1,27 @@
+@startuml "Bank Container"
+!include <C4/C4_Container>
+
+Person(customer, "Bank Customer", "A customer of the bank with active products.")
+System_Boundary(bankBoundary,"Bank System"){
+    Container(bankWeb, "BankWeb", "React","Frontend apps")
+    Container(bankApp, "BankApp", "Android/IOS","Mobile application")
+    Container(bankBack, "BankServices","Php" ,"Backend services")
+    ContainerDb(bankDb, "BankDatabase","SqlServer", "Databse system")
+
+    Rel(customer, bankWeb, "Access via web", "https/json")
+    Rel(customer, bankApp, "Access via app", "https/json")
+    Rel(bankWeb, bankBack, "Call services", "https/json")
+    Rel(bankApp, bankBack, "Call services", "https/json")
+    Rel(bankBack, bankDb, "Store and retrieve data", "jdbc")
+
+}
+
+System_Boundary(coreBoundary, "Bank Core"){
+    Container_Ext(bankGateway, "BankGateway", "IBM Gateway", "Core Banking Gateway")
+    Container_Ext(core, "Bank Core", "CRM/AS400", "Core Banking Systems")
+    Rel(bankGateway, core, "Orchestrate services", "https/xml/rcp")
+}
+
+Rel(bankBack, bankGateway, "Call services", "https/xml")
+
+@enduml
