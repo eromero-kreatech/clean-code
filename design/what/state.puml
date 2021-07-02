@@ -1,0 +1,24 @@
+@startuml state machine
+
+hide empty description
+[*] --> INITIAL
+INITIAL: Starts the transaction
+INITIAL -> WAITING
+WAITING: wait until user is selected
+WAITING --> SELECTED
+state async <<fork>>
+state isSuccess <<choice>>
+
+SELECTED --> async
+async --> isSuccess
+async --> AUDITED
+AUDITED ---> [*]
+isSuccess --> SUCCESS
+isSuccess --> NOT_SUCCESS
+
+state endAsync <<fork>>
+SUCCESS --> endAsync
+NOT_SUCCESS --> endAsync
+endAsync --> [*]
+
+@enduml

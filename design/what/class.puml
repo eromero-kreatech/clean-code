@@ -1,0 +1,37 @@
+@startuml layer arquitecture
+
+hide circle
+'hide members
+
+package "controller" as cp{
+    class Controller{
+        delegate: Delegate
+        getRelationship()
+    }
+}
+
+package "delegate" as dp {
+    class Delegate
+}
+
+package "services" as ds {
+    class ServiceA
+    class ServiceB
+}
+
+package "repository" as ip {
+    class EntityRepositoryA
+    class EntityRepositoryB
+    class EntityRepositoryC
+}
+
+Controller -* Delegate: delegate
+Delegate --> ServiceA: inject
+Delegate o-> ServiceB: inject
+ServiceA <|-- EntityRepositoryA
+ServiceB <|.. EntityRepositoryB
+ServiceB <|.. EntityRepositoryC
+
+
+
+@enduml
