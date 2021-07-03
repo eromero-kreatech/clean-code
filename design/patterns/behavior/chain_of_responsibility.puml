@@ -1,11 +1,10 @@
-@startuml
+@startuml CHAIN OF RESPONSIBILITY
 
 class Client
 
 interface Handler {
     + handleRequest()
 }
-
 
 class ConcreteHandler1 {
     + handleRequest()

@@ -7,14 +7,14 @@ INITIAL -> WAITING
 WAITING: wait until user is selected
 WAITING --> SELECTED
 state async <<fork>>
-state isSuccess <<choice>>
+state isSuccess <<choice>> 
 
 SELECTED --> async
-async --> isSuccess
-async --> AUDITED
+async --> isSuccess : process
+async --> AUDITED : audit
 AUDITED ---> [*]
-isSuccess --> SUCCESS
-isSuccess --> NOT_SUCCESS
+isSuccess --> SUCCESS : yes
+isSuccess --> NOT_SUCCESS: no
 
 state endAsync <<fork>>
 SUCCESS --> endAsync
