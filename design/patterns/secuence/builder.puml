@@ -1,0 +1,27 @@
+@startuml "Factory Pattern"
+
+participant Main /'  '/
+participant ProductBuilder /'  '/
+participant Product /'  '/
+
+Main -> ProductBuilder: new ProductBuilder
+ProductBuilder -> Product: new Product
+Product -> ProductBuilder: product: Product
+ProductBuilder -> Main: builder: ProductBuilder
+
+Main -> ProductBuilder: builder.buildPart1()
+ProductBuilder -> Product: product.buildPart1()
+ProductBuilder -> Main: builder
+
+Main -> ProductBuilder: builder.buildPart2()
+ProductBuilder -> Product: product.buildPart2()
+ProductBuilder -> Main: builder
+
+Main -> ProductBuilder: builder.buildPart3()
+ProductBuilder -> Product: product.buildPart3()
+ProductBuilder -> Main: builder
+
+Main -> ProductBuilder: builder.build()
+ProductBuilder -> Main: product: Product
+
+@enduml

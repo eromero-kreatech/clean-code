@@ -1,0 +1,20 @@
+@startuml "Factory Pattern"
+
+participant Main /'  '/
+participant Factory /'  '/
+participant ProductA /'  '/
+participant ProductB /'  '/
+
+Main -> Factory: createProductA()
+Factory -> Factory: switch product constructor
+Factory -> ProductA: new ProductA()
+ProductA -> Factory: productA
+Factory -> Main: return productA
+
+Main -> Factory: createProductB()
+Factory -> Factory: switch product constructor
+Factory -> ProductB: new ProductB()
+ProductB -> Factory: productB
+Factory -> Main: return productB
+
+@enduml
