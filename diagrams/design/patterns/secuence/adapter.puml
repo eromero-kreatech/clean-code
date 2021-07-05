@@ -1,0 +1,18 @@
+@startuml "Adapter Pattern"
+
+actor Client
+
+Client -> Controller: api.service(requestObject)
+Controller -> Adapter: adapter.requestObjectToBussinesObject(requestObject)
+Adapter -> BussinessObject: new  BussinesObject
+Adapter -> Adapter: bussinesObject.setProperties(requestObject.properties)
+Adapter -> Controller: bussinessObject
+Controller -> BussinesService: businessService.call(businessObject)
+BussinesService -> Controller: businessResponse
+Controller -> Adapter: adapter.responseBussinesToUserResponse(businessResponse)
+Adapter -> UserResponse: new UserResponse
+Adapter -> Adapter: userResponse.setProperties(businessResponse.properties)
+Adapter -> Controller: userResponse
+Controller -> Client: userResponse
+
+@enduml

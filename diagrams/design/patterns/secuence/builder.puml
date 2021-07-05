@@ -1,4 +1,4 @@
-@startuml "Factory Pattern"
+@startuml "Builder Pattern"
 
 participant Main /'  '/
 participant ProductBuilder /'  '/

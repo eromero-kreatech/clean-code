@@ -1,6 +1,4 @@
-@startuml "Factory Pattern"
-
-title Factory Pattern
+@startuml "AbstractFactory Pattern"
 
 participant Main /'  '/
 
