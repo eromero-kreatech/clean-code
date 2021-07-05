@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-builder": "ts-node src/design/code/builder/main.ts",
+    "start-builder": "ts-node src/design/builder/main.ts",
+    "start-chain": "ts-node src/design/chain/main.ts",
+    "start-command": "ts-node src/design/command/main.ts",
+    "start-observer": "ts-node src/design/observer/main.ts",
+    "start-strategy": "ts-node src/design/strategy/main.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

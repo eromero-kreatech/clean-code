@@ -1,0 +1,15 @@
+@startuml "Facade Pattern"
+
+Main -> Facade: invokeService()
+Facade -> ComplexServiceA: functionServiceA()
+ComplexServiceA -> Facade: return
+
+Facade -> ComplexServiceB: functionServiceB()
+ComplexServiceB -> Facade: return
+
+Facade -> ComplexServiceC: functionServiceC()
+ComplexServiceC -> Facade: return
+
+Facade -> Main: serviceResult
+
+@enduml

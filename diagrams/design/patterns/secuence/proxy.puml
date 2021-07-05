@@ -1,0 +1,15 @@
+@startuml "Proxy Pattern"
+
+participant Main
+participant Proxy
+participant Service
+participant Logger
+
+Main -> Proxy: proxy.functionA(request)
+Proxy -> Logger: logger.log(request)
+Proxy -> Service: service.functionA(request)
+Service -> Proxy: response
+Proxy -> Logger: logger.log(response)
+Proxy -> Main: response
+
+@enduml

@@ -1,0 +1,23 @@
+@startuml "Chain of Responsability Pattern"
+
+participant Main
+participant Receiver as "Receiver:Handler"
+participant Packer as "Packer:Handler"
+participant Notifier as "Notifier:Handler"
+participant Sender as "Sender:Handler"
+
+Main -> Main: receiver(\npacker(\nnotifier(sender))))
+Main -> Receiver: receiver.handle(order)
+Receiver -> Receiver: receiver.handle(order)
+Receiver -> Packer: receiver.next(order)
+
+Packer -> Packer: receiver.handle(order)
+Packer -> Notifier: receiver.next(order)
+
+Notifier -> Notifier: receiver.handle(order)
+Notifier -> Sender: receiver.next(order)
+
+Sender -> Sender: receiver.handle(order)
+Sender -> Sender: receiver.next(order)
+
+@enduml
