@@ -1,0 +1,28 @@
+@startuml "CQRS"
+!include <C4/C4_Component>
+!define ICONURL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/v2.3.0
+!includeurl ICONURL/material/cloud_queue.puml
+
+System(cliente, "Cliente", "Aplicacion front")
+
+Container_Boundary(micro, "Sistema"){
+    Component(read,"Lectura", "microservice", "")
+    Component(write,"Escritura", "microservice", "")
+    Component(kafka,"Cola", "queue", $sprite="cloud_queue")
+
+    Rel(cliente, read, "consulta")
+    Rel(cliente, write, "escribe,actualiza")
+    ContainerDb(dbread,"Lectura", "NOSQL", "")
+    ContainerDb(dbwrite,"Escritura", "SQL", "")
+    Rel(read, dbread, "lee")
+    Rel(write, dbwrite, "escribe")
+
+}
+
+Rel(read, kafka, "escucha")
+Rel(write, kafka, "evento")
+
+    
+
+
+@enduml
