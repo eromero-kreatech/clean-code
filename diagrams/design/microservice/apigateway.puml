@@ -1,0 +1,36 @@
+@startuml "Api Gateway"
+!include <C4/C4_Component>
+System(customer, "Cliente", "Aplicacion front")
+
+Container_Boundary(micro, "Sistema"){
+    Component(auth,"Autenticacion", "microservice", "")
+    Component(ventas,"Ventas", "microservice", "")
+    Component(envio,"Envio", "microservice", "")
+    Component(notifi,"Notificaciones", "microservice", "")
+}
+Rel(customer, auth, "autenticar")
+Rel(customer, ventas, "vender")
+Rel(customer, envio, "enviar")
+Rel(customer, notifi, "notificar")
+
+
+
+System(customer1, "Cliente", "Aplicacion front")
+
+Container_Boundary(micro1, "Sistema"){
+    Component(gateway,"Gateway", "microservice", "")
+    Component(auth1,"Autenticacion", "microservice", "")
+    Component(ventas1,"Ventas", "microservice", "")
+    Component(envio1,"Envio", "microservice", "")
+    Component(notifi1,"Notificaciones", "microservice", "")
+
+    Rel(gateway, auth1, "autenticar")
+    Rel(gateway, ventas1, "vender")
+    Rel(gateway, envio1, "enviar")
+    Rel(gateway, notifi1, "notificar")
+}
+
+
+Rel(customer1, gateway, "autenticar,vender,enviar,notificar")
+
+@enduml

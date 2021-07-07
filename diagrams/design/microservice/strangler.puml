@@ -1,0 +1,40 @@
+@startuml "Strangler the monolitht"
+!include <C4/C4_Component>
+System(customer, "cliente", "Front")
+
+Container_Boundary(monolito, "Monolito"){
+    Component(mono,"Ventas, Autenticacion, Envio, Notificaciones", "", "")
+}
+
+Container_Boundary(micro1, "Microservicios 1"){
+    Component(ventas1,"Ventas", "", "")
+    Component(mono1,"Autenticacion, Envio, Notificaciones", "", "")
+    Rel(mono1,ventas1 , "usa")
+}
+
+Container_Boundary(micro2, "Microservicios 2"){
+    Component(ventas2,"Ventas", "", "")
+    Component(auth2,"Autenticacion", "", "")
+    Component(mono2,"Envio, Notificaciones", "", "")
+     Rel(mono2, ventas2, "usa")
+     Rel(mono2, auth2, "usa")
+      
+}
+
+
+Container_Boundary(micro3, "Microservicios 3"){
+    Component(ventas,"Ventas", "", "")
+    Component(auth,"Autenticacion", "", "")
+    Component(envio,"Envio", "", "")
+    Component(notifi,"Notificaciones", "", "")
+    Rel(auth, ventas, "usa")
+     Rel(ventas, envio, "usa")
+     Rel(ventas, notifi, "usa")
+}
+Rel(customer, mono, "")
+Rel(customer, mono1, "Separación 1")
+Rel(customer, mono2, "Separación 2")
+Rel(customer, auth, "Separación 3")
+
+
+@enduml

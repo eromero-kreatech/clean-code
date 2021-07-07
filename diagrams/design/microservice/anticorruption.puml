@@ -1,0 +1,46 @@
+@startuml "Anticorruption"
+!include <C4/C4_Component>
+
+System(cliente, "Cliente", "Aplicacion front")
+
+Container_Boundary(micro, "Sistema"){
+    Component(ventas,"Ventas", "microservice", "")
+    Component(envio,"Envio", "microservice", "")
+    Component(notifi,"Notificaciones", "microservice", "")
+
+    Rel(cliente, ventas, "vender")
+    Rel(cliente, envio, "enviar")
+    Rel(cliente, notifi, "notificar")
+
+}
+
+System_Ext(ext,"External"){
+    Component(authExt,"Autenticacion Externa", "xml", "")
+}
+
+Rel(cliente, authExt, "autenticar")
+
+
+System(cliente1, "Cliente", "Aplicacion front")
+
+Container_Boundary(micro1, "Sistema"){
+    Component(ventas1,"Ventas", "microservice", "")
+    Component(envio1,"Envio", "microservice", "")
+    Component(notifi1,"Notificaciones", "microservice", "")
+
+    Component(aut1,"Autenticacion", "microservice", "Capa de anticorrupción")
+
+    Rel(cliente1, ventas1, "vender")
+    Rel(cliente1, envio1, "enviar")
+    Rel(cliente1, notifi1, "notificar")
+    Rel(cliente1, aut1, "autenticar")
+
+}
+
+System_Ext(ext1,"External"){
+    Component(authExt1,"Autenticacion Externa", "xml", "")
+}
+
+Rel(aut1, authExt1, "autenticar")
+
+@enduml

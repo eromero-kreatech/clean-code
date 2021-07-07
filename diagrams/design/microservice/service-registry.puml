@@ -1,0 +1,37 @@
+@startuml "Service Registry"
+!include <C4/C4_Component>
+
+System(cliente, "Cliente", "Aplicacion front")
+
+Container_Boundary(micro, "Sistema"){
+    Component(authIn1,"Auth", "microservice", "Instancia 1")
+    Component(authIn2,"Auth", "microservice", "Instancia 2")
+    Component(authIn3,"Auth", "microservice", "Instancia 3")
+    Component(authIn4,"Auth", "microservice", "Instancia 4")
+
+    Rel(cliente, authIn1, "?")
+    Rel(cliente, authIn2, "?")
+    Rel(cliente, authIn3, "?")
+    Rel(cliente, authIn4, "?")
+}
+
+System(cliente1, "Cliente", "Aplicacion front")
+
+Container_Boundary(micro1, "Sistema"){
+    Component(registry,"Registry", "microservice", "Service Registry")
+
+    Component(auth1In1,"Auth", "microservice", "Instancia 1")
+    Component(auth1In2,"Auth", "microservice", "Instancia 2")
+    Component(auth1In3,"Auth", "microservice", "Instancia 3")
+    Component(auth1In4,"Auth", "microservice", "Instancia 4")
+
+    Rel(cliente1, registry, "instancia/balancea")
+
+}
+
+Rel(auth1In1, registry, "register")
+Rel(auth1In2, registry, "register")
+Rel(auth1In3, registry, "register")
+Rel(auth1In4, registry, "register")
+
+@enduml

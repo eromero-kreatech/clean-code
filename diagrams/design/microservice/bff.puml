@@ -1,0 +1,46 @@
+@startuml "BFF"
+!include <C4/C4_Component>
+System(cliente, "Cliente", "Aplicacion front")
+System(mobil, "App", "Aplicacion front")
+
+Container_Boundary(micro, "Sistema"){
+    Component(auth,"Autenticacion", "microservice", "")
+    Component(ventas,"Ventas", "microservice", "")
+    Component(envio,"Envio", "microservice", "")
+    Component(notifi,"Notificaciones", "microservice", "")
+}
+Rel(cliente, auth, "autenticar")
+Rel(cliente, ventas, "vender")
+Rel(cliente, envio, "enviar")
+Rel(cliente, notifi, "notificar")
+
+Rel(mobil, auth, "autenticar")
+Rel(mobil, ventas, "vender")
+
+
+
+System(cliente1, "Cliente", "Aplicacion front")
+System(mobil1, "App", "Aplicacion front")
+
+Container_Boundary(micro1, "Sistema"){
+    Component(bff,"bff", "microservice", "")
+    Component(bffApp,"bffApp", "microservice", "")
+    Component(auth1,"Autenticacion", "microservice", "")
+    Component(ventas1,"Ventas", "microservice", "")
+    Component(envio1,"Envio", "microservice", "")
+    Component(notifi1,"Notificaciones", "microservice", "")
+
+    Rel(bff, auth1, "autenticar")
+    Rel(bff, ventas1, "vender")
+    Rel(bff, envio1, "enviar")
+    Rel(bff, notifi1, "notificar")
+
+    Rel(bffApp, auth1, "autenticar")
+    Rel(bffApp, ventas1, "vender")
+}
+
+
+Rel(cliente1, bff, "autenticar,vender,enviar,notificar")
+Rel(mobil1, bffApp, "autenticar,vender")
+
+@enduml
