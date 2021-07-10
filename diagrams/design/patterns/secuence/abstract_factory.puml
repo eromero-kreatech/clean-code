@@ -1,33 +1,28 @@
 @startuml "AbstractFactory Pattern"
 
-participant Main /'  '/
 
-participant AbstractFactory /'  '/
-participant FactoryA /'  '/
-participant FactoryB /'  '/
+Main -> AbstractFactory: factory: AbstractFactory
 
-participant ProductA /'  '/
-participant ProductB /'  '/
+alt product type A
+    Main -> FactoryA: factory = new FactoryA()
+end
 
-
-participant ProductC /'  '/
-participant ProductD /'  '/
+alt product type A
+    Main -> FactoryB: factory = new FactoryB()
+end
 
 
-Main -> AbstractFactory: listFactories: AbstractFactories[]
-Main -> FactoryA: new factoryA 
-Main -> FactoryB: new factoryB
-Main -> Main: listFactories.put(factoryA)
-Main -> Main: listFactories.put(factoryB)
-Factory -> Factory: switch product constructor
-Factory -> ProductA: new ProductA()
-ProductA -> Factory: productA
-Factory -> Main: return productA
+Main -> Product: product: Product
+Main -> AbstractFactory: factory.createProduct()
 
-Main -> Factory: createProductB()
-Factory -> Factory: switch product constructor
-Factory -> ProductB: new ProductB()
-ProductB -> Factory: productB
-Factory -> Main: return productB
+alt product type A
+    FactoryA -> ProductA: factory.createProduct() :ProductA
+end
+
+alt product type B
+    FactoryB -> ProductB: factory.createProduct() :ProductB
+end
+
+Main -> Main: product.doSomething()
 
 @enduml

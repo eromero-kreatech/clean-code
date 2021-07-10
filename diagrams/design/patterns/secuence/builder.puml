@@ -1,9 +1,5 @@
 @startuml "Builder Pattern"
 
-participant Main /'  '/
-participant ProductBuilder /'  '/
-participant Product /'  '/
-
 Main -> ProductBuilder: new ProductBuilder
 ProductBuilder -> Product: new Product
 Product -> ProductBuilder: product: Product

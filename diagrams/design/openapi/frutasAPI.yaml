@@ -3,30 +3,17 @@ info:
   title: AlimentosAPI
   version: v1.0
   description: Api para administrar elimentos
-  termsOfService: 'http://terms-of-service.com'
+  termsOfService: "http://terms-of-service.com"
   contact:
-    email: edwin.romero@scotiabank.com.co
+    email: eromero@kreatech.com.co
     name: edwin romero
-    url: 'https://www.linkedin.com/rcabezas1'
+    url: "https://www.linkedin.com/rcabezas1"
   license:
     name: GNU GPL
-    url: 'https://license.com'
+    url: "https://license.com"
 servers:
-  - url: https://{environment}:{port}/alimentos
-    variables:
-      environment:
-        default: api    # Production server
-        enum:
-          - api         # Production server
-          - api.dev     # Development server
-          - api.uat # Staging server
-          - localhost   # Local server
-      port:
-        default: '8080'    # Production server
-        enum:
-          - '8080' # Production server
-          - '8098' # Development server
-          - '8081' # Staging server
+  - url: http://localhost:8080/alimentos
+  - url: https://produccion:8080/alimentos
 tags:
   - name: Frutas
     description: Operaciones con las frutas
@@ -44,90 +31,90 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PeraRequest'
-            example: 
-              data: 
+              $ref: "#/components/schemas/PeraRequest"
+            example:
+              data:
                 tipo: Verde
                 nombre: Pera Arrallanas
         required: true
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PeraResponse'
-              example: 
+                $ref: "#/components/schemas/PeraResponse"
+              example:
                 data:
                   id: 123
                   tipo: Verde
                   nombre: Pera Arrallana
-        '400':
+        "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PeraResponse'
+                $ref: "#/components/schemas/PeraResponse"
               examples:
                 nombReq:
                   summary: Nombre requerido
                   value:
-                    errores: 
-                    - codigo: 'REQ'
-                      valor: 'nombre requerido'
+                    errores:
+                      - codigo: "REQ"
+                        valor: "nombre requerido"
                 tipoReq:
                   summary: Tipo requerido
                   value:
-                    errores: 
-                    - codigo: 'REQ'
-                      valor: 'tipo requerido'
-        '500':
+                    errores:
+                      - codigo: "REQ"
+                        valor: "tipo requerido"
+        "500":
           description: Internal Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PeraResponse'
+                $ref: "#/components/schemas/PeraResponse"
               example:
-                errores: 
-                  - codigo: 'ERR'
-                    valor: 'Sistema no disponible'
-        '502':
+                errores:
+                  - codigo: "ERR"
+                    valor: "Sistema no disponible"
+        "502":
           description: Internal Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PeraResponse'
+                $ref: "#/components/schemas/PeraResponse"
               example:
-                errores: 
-                  - codigo: 'ERR2'
-                    valor: 'Sistema no disponible'
+                errores:
+                  - codigo: "ERR2"
+                    valor: "Sistema no disponible"
     get:
       tags:
         - Frutas
       description: Obtener las peras que están disponibles
       operationId: getPera
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/PeraResponse'
+                  $ref: "#/components/schemas/PeraResponse"
                 example:
                   - data:
                       id: 123
                       tipo: Verde
                       nombre: Pera Arrallana
-        '404':
+        "404":
           description: Not Found
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/PeraResponse'
+                  $ref: "#/components/schemas/PeraResponse"
                 example:
                   - errores:
                       - codigo: NF
@@ -143,43 +130,43 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PeraUpdateRequest'
+              $ref: "#/components/schemas/PeraUpdateRequest"
             example:
               data:
                 tipo: Cafe
         required: true
       responses:
-        '200':
+        "200":
           description: Success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PeraResponse'
-              example: 
+                $ref: "#/components/schemas/PeraResponse"
+              example:
                 data:
                   nombre: Pera arrallana
                   id: 123
                   tipo: Verde
-        '400':
+        "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PeraResponse'
+                $ref: "#/components/schemas/PeraResponse"
               example:
-                errores: 
-                  - codigo: 'REQ'
-                    valor: 'nombre requerido'
-        '500':
+                errores:
+                  - codigo: "REQ"
+                    valor: "nombre requerido"
+        "500":
           description: Internal Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PeraResponse'
+                $ref: "#/components/schemas/PeraResponse"
               example:
-                errores: 
-                  - codigo: 'ERR'
-                    valor: 'Sistema no disponible'
+                errores:
+                  - codigo: "ERR"
+                    valor: "Sistema no disponible"
   /fruta/{id}:
     get:
       summary: Obtiene la pera por id
@@ -195,13 +182,13 @@ paths:
         - Frutas
       operationId: getPeraPorId
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PeraResponse'
-              example: 
+                $ref: "#/components/schemas/PeraResponse"
+              example:
                 data:
                   id: 123
                   tipo: Verde
@@ -219,16 +206,16 @@ paths:
         - Frutas
       operationId: deletePeraPorId
       responses:
-        '204':
+        "204":
           description: No content
-        '404':
+        "404":
           description: Not Found
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/PeraResponse'
+                  $ref: "#/components/schemas/PeraResponse"
                 example:
                   - errores:
                       - codigo: NF
@@ -246,9 +233,9 @@ components:
             tipo:
               type: string
               enum:
-              - Verde
-              - Cafe
-              - Organica
+                - Verde
+                - Cafe
+                - Organica
     PeraUpdateRequest:
       type: object
       properties:
@@ -258,9 +245,9 @@ components:
             tipo:
               type: string
               enum:
-              - Verde
-              - Cafe
-              - Organica
+                - Verde
+                - Cafe
+                - Organica
     PeraResponse:
       type: object
       properties:
@@ -275,13 +262,13 @@ components:
             tipo:
               type: string
               enum:
-              - Verde
-              - Cafe
-              - Organica
+                - Verde
+                - Cafe
+                - Organica
         errores:
           type: array
           items:
-            $ref: '#/components/schemas/Error'
+            $ref: "#/components/schemas/Error"
     Error:
       type: object
       properties:

@@ -1,3 +1,3 @@
-export interface Strategy{
-    notify(text: string): string;
+export interface Strategy {
+  notify(text: string): string;
 }

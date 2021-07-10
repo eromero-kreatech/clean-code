@@ -1,9 +1,5 @@
 @startuml "Factory Pattern"
 
-participant Main /'  '/
-participant Factory /'  '/
-participant ProductA /'  '/
-participant ProductB /'  '/
 
 Main -> Factory: createProductA()
 Factory -> Factory: switch product constructor
