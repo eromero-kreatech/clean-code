@@ -5,8 +5,6 @@
 import { Invoker } from "./invoker";
 import { Receiver } from "./receiver";
 
-const unused = 0;
-
 const calculator = new Invoker(new Receiver(0));
 calculator.add(1);
 calculator.add(2);
