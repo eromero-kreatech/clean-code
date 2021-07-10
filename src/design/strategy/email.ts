@@ -1,7 +1,7 @@
-import { Notifier } from "./strategy";
+import { Strategy } from "./strategy";
 
-export class Email implements Notifier{
-    notify(text: string): void {
-        console.log(`I'm sending an email notification with this text: ${text}`)
+export class Email implements Strategy{
+    notify(text: string): string {
+        return `I'm sending an email notification with this text: ${text}`;
     }
 }

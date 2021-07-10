@@ -1,10 +1,22 @@
+import { Context } from "./context";
 import { Email } from "./email";
 import { Sms } from "./sms";
-import { Notifier } from "./strategy";
+import { Strategy } from "./strategy";
 
 
-const notifiers: Notifier[] = [new Email(), new Sms()];
+const notifiers: Strategy[] = [new Email(), new Sms()];
 
-notifiers.forEach(notifier => {
-    notifier.notify("This is the notification")
-})
+let context;
+const selected = randomSelection();
+if(selected > 0.5){
+    context = new Context(new Email());
+}else{
+    context = new Context(new Sms());
+}
+
+console.log(context.executeStrategy("this is the message"))
+
+
+function randomSelection(): number {
+    return Math.random()
+}

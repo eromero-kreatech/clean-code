@@ -1,3 +1,3 @@
-export interface Notifier{
-    notify(text: string): void;
+export interface Strategy{
+    notify(text: string): string;
 }
