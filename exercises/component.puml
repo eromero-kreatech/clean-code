@@ -1,0 +1,36 @@
+@startuml "Su Vacuna Component"
+!include <C4/C4_Component>
+
+title Su Vacuna Registro componentes
+
+
+Container(vacunaWeb, "VacunaWEB", "Angular","Frontend para la aplicacion de su vacuna")
+Container_Boundary(vacunaNode, "SuVacuna"){
+    Component(suVacuna,"SuVacuna", "NodeJS", "BFF para las operaciones del frontend")
+    Component(registro,"SuVacunaRegistro", "Php", "Registrar a todos los usuarios")
+
+    Rel(suVacuna, registro, "Authenticar y registrar las personas", "https/json")
+}
+Container(vacunaGO, "SuVacunaInfo", "GO","Exponer servicios de consulta para la IPS")
+Container(vacunaSYNC, "VacunaSync", "RabbitMQ","Sincronizar lectura y escritura")
+
+ContainerDb(mongo, "BDLectura","mongoDB", "Base para lectura de la informacion")
+ContainerDb(oracle, "BDEscritura","Oracle", "Base para la escritura")
+
+Rel(vacunaWeb, suVacuna, "Registrar todo el proceso")
+Rel(vacunaGO, mongo, "Consulta Data")
+Rel(suVacuna, oracle, "Esribe la data")
+
+Rel(oracle,vacunaSYNC , "Escucha la escritura")
+Rel(vacunaSYNC, mongo, "Replico el registro en base de datos de lectura")
+
+
+System_Ext(regix, "Regix", "Aplicación existente de la reguistraduria")
+System_Ext(ips, "IPS", "Listado de las personas vacunadas")
+
+Rel(registro, regix, "Consultar la identificacion de los usuarios")
+Rel(ips, vacunaGO, "Consultar usuarios registrados")
+
+
+
+@enduml

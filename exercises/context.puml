@@ -1,0 +1,19 @@
+@startuml
+!include <C4/C4_Context>
+
+title Suvacuna
+
+Person(persona, "Persona", "Registrar el proceso de vacunacion")
+System(suVacuna, "SuVacuna", "Registrar la vacunacion contra el covid 19")
+System_Ext(regix, "Regix", "Aplicación existente de la reguistraduria")
+System_Ext(ips, "IPS", "Listado de las personas vacunadas")
+
+
+Rel(persona, suVacuna, "Registra proceso")
+Rel(suVacuna, regix, "Consultar la identificacion de los usuarios")
+Rel(ips, suVacuna, "Consultar usuarios registrados")
+
+
+
+
+@enduml
