@@ -1,4 +1,3 @@
-
 /**
  * Chain of Responsibility pattern code example
  */
@@ -9,7 +8,8 @@ import { Packer } from "./packer";
 import { Receiver } from "./receiver";
 import { Sender } from "./sender";
 
-const chainOfResponsibility = new Receiver(new Packer(new Notifier(new Sender())));
-
+const chainOfResponsibility = new Receiver(
+  new Packer(new Notifier(new Sender(new Notifier(new Receiver()))))
+);
 
 chainOfResponsibility.handle(new Order("Identificador", 1000));

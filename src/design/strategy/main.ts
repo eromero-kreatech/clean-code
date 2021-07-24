@@ -1,20 +1,22 @@
 import { Context } from "./context";
 import { Email } from "./email";
+import { Phone } from "./phone";
 import { Sms } from "./sms";
-import { Strategy } from "./strategy";
-
-const notifiers: Strategy[] = [new Email(), new Sms()];
 
 let context;
 const selected = randomSelection();
-if (selected > 0.5) {
+if (selected < 0.5) {
   context = new Context(new Email());
-} else {
+} else if (selected > 0.5 && selected < 0.2) {
   context = new Context(new Sms());
+} else {
+  context = new Context(new Phone());
 }
 
 console.log(context.executeStrategy("this is the message"));
 
 function randomSelection(): number {
-  return Math.random();
+  const numero = Math.random();
+  console.log(numero);
+  return numero;
 }

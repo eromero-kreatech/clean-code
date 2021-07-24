@@ -1,4 +1,29 @@
 @startuml
 
+actor Usuario
+
+
+Usuario -> VacunaWeb: accede para registrarse
+VacunaWeb -> SuVacuna: enviamos información del registro
+SuVacuna -> SuVacunaRegistro: enviamos información del registro
+SuVacunaRegistro -> Regix: consultar la cedula del usuario
+alt usuario No existe
+    Regix -> SuVacunaRegistro: usuario no existe
+    SuVacunaRegistro -> SuVacuna: usuario no existe
+    SuVacuna -> VacunaWeb: usuario no existe
+    VacunaWeb -> Usuario: muestra el mensaje de error de validación
+end
+alt usuario existe
+    Regix -> SuVacunaRegistro: usuario existe
+    SuVacunaRegistro -> SuVacunaRegistro: crea el usuario en el sistema
+    database BaseDatosEscritura
+    SuVacunaRegistro -> BaseDatosEscritura: cear el usuario
+    BaseDatosEscritura -> SuVacunaRegistro: cear el usuario
+    SuVacunaRegistro -> SuVacuna: El usuario se creo con exito
+    SuVacuna -> VacunaWeb: redireccione a pantalla principal
+    VacunaWeb -> Usuario: Desplegar pantalla principal
+
+end
+
 
 @enduml
